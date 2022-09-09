@@ -47,7 +47,7 @@ namespace Ejercicio2
 
         public string DiasEnEmpresa()
         {
-            
+            int diferencia = this.fechaIngreso - DateTime.Now;
         }
     }
 }
