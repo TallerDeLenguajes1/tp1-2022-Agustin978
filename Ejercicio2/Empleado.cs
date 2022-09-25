@@ -11,8 +11,8 @@ public class Empleado
     private const double desc = 0.15;
     //Datos adicionales
     private bool esCasado, esDivorciado, esTsitulado;
-    private int cantHijos;
-    private string titulo;
+    private int cantHijos = 0;
+    private string titulo = "";
     private Universidades universidad;
         //private int edad;
         //private float saldo;
@@ -51,6 +51,31 @@ public class Empleado
     public string getDescProfesional()
     {
         return this.descripcionProfesional;
+    }
+
+    public bool getEsCasado()
+    {
+        return this.esCasado;
+    }
+
+    public bool getEsDivorciado()
+    {
+        return this.esDivorciado;
+    }
+
+    public string getFechaDivorcio()
+    {
+        return this.fechaDivorcio.ToString("yyyy/MM/dd");
+    }
+
+    public string getFechaIngreso()
+    {
+        return this.fechaIngreso.ToString("yyyy/MM/dd");
+    }
+
+    public int getCantidadHijos()
+    {
+        return this.cantHijos;
     }
 
     //Funcion para obtener la antiguedad del empleado en la empresa tanto en dias como en anios
@@ -127,7 +152,13 @@ public class Empleado
             Console.WriteLine("Dia:");
             string dia = Console.ReadLine();
 
-            DateTime fechaDivorcio = DateTime.TryParseExact(anio+"/"+mes+"/"+dia,"yy-MM-dd",null,DateTimeStyles.None, out fechaDivorcio);
+            try
+            {
+                DateTime fechaDivorcio = DateTime.Parse(anio+"/"+mes+"/"+dia);
+            }catch(Exception)
+            {
+                Console.WriteLine("Error.. se indico una fecha no reconocida");
+            };
             setFechaDivorcio(fechaDivorcio);
         }
     }
@@ -138,8 +169,37 @@ public class Empleado
         this.fechaDivorcio = fecha;
     }
 
+    //Metodo setter para ingresar la cantidad de hijos del empleado
+    public void setCantidadHijos(int cantidad)
+    {
+        this.cantHijos = cantidad;
+    }
+
     public void MuestraEmpleado()
     {
-        Console.WriteLine($"\nNombre y Apellido: {getNombre()}, {getApellido()}\nEdad: {edad()} anios\nDireccion: {getDireccion()}\nAnios de antiguedad en la empresa: {aniosAntiguedad()}\nAntiguedad en dias: {Antiguedad()}\nSalario: $ {Salario()}\nCodigo de empleado: {this.codigo}");
+        Console.WriteLine($"\nNombre y Apellido: {getNombre()}, {getApellido()}\nEdad: {edad()} anios\nDireccion: {getDireccion()}\nAnios de antiguedad en la empresa: {aniosAntiguedad()}\nAntiguedad en dias: {Antiguedad()}\nFecha de ingreso en la empresa: {getFechaIngreso()}\nSalario: $ {Salario()}\nCodigo de empleado: {this.codigo}");
+    }
+
+    public void MuestraEmpleadoModificado()
+    {
+        if(!getEsCasado())//para obtener si es casado o no
+        {
+            if(getEsDivorciado())
+            {
+                Console.WriteLine($"\nNombre y Apellido: {getNombre()}, {getApellido()}\nEdad: {edad()} anios\nDireccion: {getDireccion()}\nAnios de antiguedad en la empresa: {aniosAntiguedad()}\nAntiguedad en dias: {Antiguedad()}\nFecha de ingreso en la empresa: {getFechaIngreso()}\nSalario: $ {Salario()}\nCodigo de empleado: {this.codigo}\nDivorciado en la fecha {getFechaDivorcio()}\nTiene {getCantidadHijos()} hijo/s");
+            }else
+            {
+                if(getCantidadHijos() == 0)
+                {
+                    MuestraEmpleado();
+                }else
+                {
+                    Console.WriteLine($"\nNombre y Apellido: {getNombre()}, {getApellido()}\nEdad: {edad()} anios\nDireccion: {getDireccion()}\nAnios de antiguedad en la empresa: {aniosAntiguedad()}\nAntiguedad en dias: {Antiguedad()}\nFecha de ingreso en la empresa: {getFechaIngreso()}\nSalario: $ {Salario()}\nCodigo de empleado: {this.codigo}\nTiene {getCantidadHijos()} hijo/s");
+                }
+            }
+        }else
+        {
+            Console.WriteLine($"\nNombre y Apellido: {getNombre()}, {getApellido()}\nEdad: {edad()} anios\nDireccion: {getDireccion()}\nAnios de antiguedad en la empresa: {aniosAntiguedad()}\nAntiguedad en dias: {Antiguedad()}\nFecha de ingreso en la empresa: {getFechaIngreso()}\nSalario: $ {Salario()}\nCodigo de empleado: {this.codigo}\nEsta casado\nTiene {getCantidadHijos()} hijo/s");
+        }
     }
 }   

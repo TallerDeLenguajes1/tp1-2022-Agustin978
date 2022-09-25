@@ -15,8 +15,15 @@ int main()
     Empleado empleado1 = new Empleado("Agustin", "Lobo", "Rojas Paz 33", "Trabaja como programador", fecha1, fechaNacimiento1);
     Empleado empleado2 = new Empleado("Esteban", "Quito", "En la concha del mono", "Trabaja como analista", fecha2, fechaNacimiento2);
     Empleado Jefe = new Empleado("Putoel", "Quelee", "Ni el sabe donde vive", "Se rasca a cuatro manos", fecha3, fechaNacimiento3);
-    empleado1.MuestraEmpleado();
-    empleado2.MuestraEmpleado();
-    Jefe.MuestraEmpleado();
+
+    empleado2.setCasado(true);
+    empleado1.setDivorciado(true);
+    empleado1.MuestraEmpleadoModificado();
+    empleado2.MuestraEmpleadoModificado();
+    Jefe.setCantidadHijos(10);
+    Jefe.setDivorciado(true);
+    Jefe.MuestraEmpleadoModificado();
+    //Modifico el empleado jefe y empleado1
+
     return 0;
 }
